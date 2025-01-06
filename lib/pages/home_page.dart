@@ -41,38 +41,45 @@ class _HomePageState extends State<HomePage> {
       ),
 
       body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: TextField(
-                controller: searchController,
-                onChanged: (String value) {
-                  searchText = searchController.text;
+        child: FractionallySizedBox(
+          widthFactor: 0.5,
+          child: Column(  
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 24, bottom: 12),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Search a film',
+                  ),
+                  controller: searchController,
+                  onChanged: (String value) {
+                    searchText = searchController.text;
+                  },
+                ),
+              ),
+          
+              ElevatedButton(
+                onPressed: () => setState(() {
+                  appState.filmSearch = appState.fetchFilmBySearch(appState.client, searchText);
+                }), 
+              child: Text('Search'),
+              ),
+              SizedBox(height: 12),
+              FutureBuilder<FilmsSearch>(
+                future: appState.filmSearch,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return FilmCard(filmsSearch: snapshot.data!);
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                  // default: loading spinner.
+                  return const CircularProgressIndicator();
                 },
               ),
-            ),
-
-            ElevatedButton(
-              onPressed: () => setState(() {
-                appState.filmSearch = appState.fetchFilmBySearch(appState.client, searchText);
-              }), 
-            child: Text('Search'),
-            ),
-            SizedBox(height: 12),
-            FutureBuilder<FilmsSearch>(
-              future: appState.filmSearch,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return FilmCard(filmsSearch: snapshot.data!);
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                // default: loading spinner.
-                return const CircularProgressIndicator();
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ), 
     );
