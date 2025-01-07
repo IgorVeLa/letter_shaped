@@ -22,25 +22,30 @@ class FilmDetailPage extends StatelessWidget {
         }, 
         icon: Icon(Icons.arrow_back)),
 
-        title: Text('Film Image'),
+        title: Text('Film Banner'),
       ),
 
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FilmDetailHeadingCard(film: film),
-              SizedBox(height: 12),
-              Text(film.plot),
-              SizedBox(height: 20),
-              Text('Ratings'),
-              RatingsScrollView(ratings: film.ratings),
-              SizedBox(height: 12),
-              //DetailsCard(actors: film.actors, directors: film.director, writers: film.writer, awards: film.awards)
-            ],
+        child: Center(
+          child: FractionallySizedBox(
+            widthFactor: 0.65,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+            
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FilmDetailHeadingCard(film: film),
+                  SizedBox(height: 12),
+                  Text(film.plot),
+                  SizedBox(height: 20),
+                  Text('Ratings'),
+                  RatingsScrollView(ratings: film.ratings),
+                  SizedBox(height: 12),
+                  //DetailsCard(actors: film.actors, directors: film.director, writers: film.writer, awards: film.awards)
+                ],
+              ),
+            ),
           ),
         ),
       ),

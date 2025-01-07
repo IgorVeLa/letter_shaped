@@ -13,6 +13,18 @@ class FilmDetailHeadingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
         children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(5.0),
+            child: Image.network(film.poster,
+            height: 315,
+            width: 210,
+            fit: BoxFit.cover,
+            ),
+          ),
+
+          SizedBox(width: 40),
+
+          // Film text detail
           Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +40,7 @@ class FilmDetailHeadingCard extends StatelessWidget {
                     fontSize: 14, 
                     fontWeight: FontWeight.bold
                     ).apply(
-                    fontSizeFactor: 1.4, 
+                    fontSizeFactor: 2, 
                     fontSizeDelta: 0
                     ),
                   ),
@@ -41,17 +53,6 @@ class FilmDetailHeadingCard extends StatelessWidget {
               ),
               Text(film.runtime),
             ],
-          ),
-
-          Spacer(),
-          
-          ClipRRect(
-            borderRadius: BorderRadius.circular(5.0),
-            child: Image.network(film.poster,
-            height: 210,
-            width: 140,
-            fit: BoxFit.cover,
-            ),
           ),
         ]
       );
